@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <AssemblyName>PingDong.Newmoon.IdentityService.Service</AssemblyName>
+    <RootNamespace>PingDong.Newmoon.IdentityService.Service</RootNamespace>
+    <Version>0.0.1.0</Version>
+    <PackageId>PingDong.Newmoon.IdentityService.Service</PackageId>
+    <Authors>Ping Dong</Authors>
+    <Company />
+    <Product>Newmoon</Product>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="IdentityServer4.AspNetIdentity" Version="2.4.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Authentication.Core\Authentication.Core.csproj" />
+  </ItemGroup>
+
+</Project>
