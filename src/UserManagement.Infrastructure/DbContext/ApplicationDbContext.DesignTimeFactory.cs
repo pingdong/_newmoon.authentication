@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
 
-namespace PingDong.Newmoon.Authentication.Infrastructure
+namespace PingDong.NewMoon.UserManagement.Infrastructure
 {
     public class ApplicationDbContextDesignFactory : IDesignTimeDbContextFactory<ApplicationDbContext>
     {

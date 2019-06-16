@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29009.5
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Authentication.Core", "src\Authentication.Core\Authentication.Core.csproj", "{AC3E4C94-AF18-4DBC-9916-58F2340C0FBC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UserManagement.Core", "src\UserManagement.Core\UserManagement.Core.csproj", "{AC3E4C94-AF18-4DBC-9916-58F2340C0FBC}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Authentication.Infrastructure", "src\Authentication.Infrastructure\Authentication.Infrastructure.csproj", "{2F0F91F3-498D-4544-8D40-24262641153D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UserManagement.Infrastructure", "src\UserManagement.Infrastructure\UserManagement.Infrastructure.csproj", "{2F0F91F3-498D-4544-8D40-24262641153D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Authentication", "src\Authentication\Authentication.csproj", "{1C6EBCC0-33DC-45A4-9AF6-4F5A4AA0D8CA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UserManagement", "src\UserManagement\UserManagement.csproj", "{1C6EBCC0-33DC-45A4-9AF6-4F5A4AA0D8CA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

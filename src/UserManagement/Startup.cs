@@ -13,9 +13,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.HealthChecks;
 
-using PingDong.Newmoon.Authentication.Infrastructure;
+using PingDong.NewMoon.UserManagement.Infrastructure;
 
-namespace PingDong.Newmoon.Authentication
+namespace PingDong.NewMoon.UserManagement
 {
     public class Startup
     {

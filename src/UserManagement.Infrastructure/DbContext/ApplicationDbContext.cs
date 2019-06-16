@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 using Microsoft.EntityFrameworkCore;
 
-namespace PingDong.Newmoon.Authentication.Infrastructure
+namespace PingDong.NewMoon.UserManagement.Infrastructure
 {
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, Guid>
     {

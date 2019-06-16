@@ -5,7 +5,7 @@ using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 
-namespace PingDong.Newmoon.Authentication
+namespace PingDong.NewMoon.UserManagement
 {
     public class Program
     {

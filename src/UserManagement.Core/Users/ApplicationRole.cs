@@ -2,7 +2,7 @@
 
 using Microsoft.AspNetCore.Identity;
 
-namespace PingDong.Newmoon.Authentication
+namespace PingDong.NewMoon.UserManagement
 {
     public class ApplicationRole : IdentityRole<Guid>
     {

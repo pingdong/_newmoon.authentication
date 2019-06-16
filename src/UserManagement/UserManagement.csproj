@@ -2,11 +2,12 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
-    <UserSecretsId>aspnet-PingDong.Newmoon-Authentication-3E46125E-B268-4C23-943E-3EF6C85DE369</UserSecretsId>
+    <UserSecretsId>aspnet-PingDong.Newmoon-UserManagement-3E46125E-B268-4C23-943E-3EF6C85DE369</UserSecretsId>
     <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
     <Version>0.0.1.0</Version>
     <Authors>Ping Dong</Authors>
     <Product>Newmoon</Product>
+    <AssemblyName>PingDong.NewMoon.UserManagement</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>
@@ -28,7 +29,7 @@
 
 
   <ItemGroup>
-    <ProjectReference Include="..\Authentication.Infrastructure\Authentication.Infrastructure.csproj" />
+    <ProjectReference Include="..\UserManagement.Infrastructure\UserManagement.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

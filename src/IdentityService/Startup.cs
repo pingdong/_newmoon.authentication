@@ -11,7 +11,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.HealthChecks;
 
-using PingDong.Newmoon.Authentication.Infrastructure;
+using PingDong.NewMoon.UserManagement;
+using PingDong.NewMoon.UserManagement.Infrastructure;
 using PingDong.Newmoon.IdentityService.Service;
 using PingDong.Newmoon.IdentityService.Infrastructure;
 

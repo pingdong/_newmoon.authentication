@@ -29,9 +29,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Authentication.Infrastructure\Authentication.Infrastructure.csproj" />
     <ProjectReference Include="..\IdentityService.Infrastructure\IdentityService.Infrastructure.csproj" />
     <ProjectReference Include="..\IdentityService.Service\IdentityService.Service.csproj" />
+    <ProjectReference Include="..\UserManagement.Infrastructure\UserManagement.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

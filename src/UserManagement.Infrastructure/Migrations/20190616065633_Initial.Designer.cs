@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace PingDong.Newmoon.Authentication.Infrastructure.Migrations
+namespace PingDong.NewMoon.UserManagement.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
     [Migration("20190616065633_Initial")]
@@ -102,7 +102,7 @@ namespace PingDong.Newmoon.Authentication.Infrastructure.Migrations
                     b.ToTable("UserTokens","user");
                 });
 
-            modelBuilder.Entity("PingDong.Newmoon.Authentication.ApplicationRole", b =>
+            modelBuilder.Entity("PingDong.NewMoon.UserManagement.ApplicationRole", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
@@ -126,7 +126,7 @@ namespace PingDong.Newmoon.Authentication.Infrastructure.Migrations
                     b.ToTable("Roles","user");
                 });
 
-            modelBuilder.Entity("PingDong.Newmoon.Authentication.ApplicationUser", b =>
+            modelBuilder.Entity("PingDong.NewMoon.UserManagement.ApplicationUser", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
@@ -183,7 +183,7 @@ namespace PingDong.Newmoon.Authentication.Infrastructure.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
                 {
-                    b.HasOne("PingDong.Newmoon.Authentication.ApplicationRole")
+                    b.HasOne("PingDong.NewMoon.UserManagement.ApplicationRole")
                         .WithMany()
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -191,7 +191,7 @@ namespace PingDong.Newmoon.Authentication.Infrastructure.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<System.Guid>", b =>
                 {
-                    b.HasOne("PingDong.Newmoon.Authentication.ApplicationUser")
+                    b.HasOne("PingDong.NewMoon.UserManagement.ApplicationUser")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -199,7 +199,7 @@ namespace PingDong.Newmoon.Authentication.Infrastructure.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<System.Guid>", b =>
                 {
-                    b.HasOne("PingDong.Newmoon.Authentication.ApplicationUser")
+                    b.HasOne("PingDong.NewMoon.UserManagement.ApplicationUser")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -207,12 +207,12 @@ namespace PingDong.Newmoon.Authentication.Infrastructure.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<System.Guid>", b =>
                 {
-                    b.HasOne("PingDong.Newmoon.Authentication.ApplicationRole")
+                    b.HasOne("PingDong.NewMoon.UserManagement.ApplicationRole")
                         .WithMany()
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("PingDong.Newmoon.Authentication.ApplicationUser")
+                    b.HasOne("PingDong.NewMoon.UserManagement.ApplicationUser")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -220,7 +220,7 @@ namespace PingDong.Newmoon.Authentication.Infrastructure.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<System.Guid>", b =>
                 {
-                    b.HasOne("PingDong.Newmoon.Authentication.ApplicationUser")
+                    b.HasOne("PingDong.NewMoon.UserManagement.ApplicationUser")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);

@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace PingDong.Newmoon.Authentication.Pages
+namespace PingDong.NewMoon.UserManagement.Pages
 {
     public class IndexModel : PageModel
     {

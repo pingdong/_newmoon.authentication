@@ -2,9 +2,11 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <AssemblyName>PingDong.Newmoon.Authentication.Core</AssemblyName>
-    <RootNamespace>PingDong.Newmoon.Authentication.Core</RootNamespace>
+    <AssemblyName>PingDong.NewMoon.UserManagement.Core</AssemblyName>
+    <RootNamespace>PingDong.NewMoon.UserManagement.Core</RootNamespace>
     <Version>0.0.1.0</Version>
+    <Authors>Ping Dong</Authors>
+    <Product>Newmoon</Product>
   </PropertyGroup>
 
   <ItemGroup>
