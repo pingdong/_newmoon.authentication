@@ -20,6 +20,10 @@ variables:
 steps:
 - script: dotnet restore
   displayName: 'Restore'
+  inputs:
+    command: restore
+    projects: '**/*.csproj'
+    arguments: '--configuration $(buildConfiguration)'
 
 - task: DotNetCoreCLI@2
   displayName: Build
