@@ -18,7 +18,7 @@ variables:
   BuildConfiguration.Release: 'Release'
 
 steps:
-- script: dotnet restore
+- task: DotNetCoreCLI@2
   displayName: 'Restore'
   inputs:
     command: restore
