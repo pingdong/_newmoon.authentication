@@ -1,8 +1,8 @@
-﻿using System;
-using System.IO;
-using Microsoft.AspNetCore;
+﻿using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
+using System;
+using System.IO;
 
 namespace PingDong.Newmoon.Authentication.IdentityService
 {
@@ -48,22 +48,17 @@ namespace PingDong.Newmoon.Authentication.IdentityService
             var configuration = builder.Build();
 
             // Host
-            var host = BuildWebHost(args, configuration).Build();
-                
-            host.Run();
+            BuildWebHost(args, configuration)
+                .Build()
+                .Run();
         }
 
         public static IWebHostBuilder BuildWebHost(string[] args, IConfiguration configuration) =>
             WebHost.CreateDefaultBuilder(args)
                 .CaptureStartupErrors(true)
                 // Application Configure
-                .ConfigureAppConfiguration((builderContext, config) =>
-                {
-                    // Configuration Source
-                    config.AddConfiguration(configuration);
-                })
+                .ConfigureAppConfiguration((builderContext, config) => config.AddConfiguration(configuration))
                 .UseContentRoot(Directory.GetCurrentDirectory())
-                // HealthChecks initialise
                 .UseHealthChecks("/health")
                 .UseApplicationInsights()
                 .UseStartup<Startup>();

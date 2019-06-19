@@ -1,8 +1,7 @@
-﻿using System.IO;
-
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
+using System.IO;
 
 namespace PingDong.NewMoon.UserManagement.Infrastructure
 {
@@ -12,7 +11,7 @@ namespace PingDong.NewMoon.UserManagement.Infrastructure
         {
             // Configuration
             var settingFile = Path.Combine(Directory.GetCurrentDirectory(), "local.settings.json");
-                
+
             var config = new ConfigurationBuilder()
                 .AddJsonFile(settingFile)
                 .Build();

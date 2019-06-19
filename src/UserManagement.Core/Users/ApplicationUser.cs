@@ -1,6 +1,5 @@
-﻿using System;
-
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
+using System;
 
 namespace PingDong.NewMoon.UserManagement
 {

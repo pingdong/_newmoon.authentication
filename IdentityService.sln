@@ -9,8 +9,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityService", "src\Iden
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityService.Service", "src\IdentityService.Service\IdentityService.Service.csproj", "{FF53F85F-8409-4E2D-85E7-0959667EE81A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityService.Infrastructure", "src\IdentityService.Infrastructure\IdentityService.Infrastructure.csproj", "{B5958544-832F-4DF8-A663-1E48492CC9C4}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UserManagement.Infrastructure", "src\UserManagement.Infrastructure\UserManagement.Infrastructure.csproj", "{B8C9A96B-6FE8-452D-92B9-E7FCD26B163B}"
 EndProject
 Global
@@ -31,10 +29,6 @@ Global
 		{FF53F85F-8409-4E2D-85E7-0959667EE81A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FF53F85F-8409-4E2D-85E7-0959667EE81A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FF53F85F-8409-4E2D-85E7-0959667EE81A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B5958544-832F-4DF8-A663-1E48492CC9C4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B5958544-832F-4DF8-A663-1E48492CC9C4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B5958544-832F-4DF8-A663-1E48492CC9C4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B5958544-832F-4DF8-A663-1E48492CC9C4}.Release|Any CPU.Build.0 = Release|Any CPU
 		{B8C9A96B-6FE8-452D-92B9-E7FCD26B163B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{B8C9A96B-6FE8-452D-92B9-E7FCD26B163B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B8C9A96B-6FE8-452D-92B9-E7FCD26B163B}.Release|Any CPU.ActiveCfg = Release|Any CPU
