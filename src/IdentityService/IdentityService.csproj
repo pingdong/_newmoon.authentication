@@ -11,14 +11,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Remove="local.settings.json" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="local.settings.json" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="IdentityServer4.AspNetIdentity" Version="2.4.0" />
     <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.7.0" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
