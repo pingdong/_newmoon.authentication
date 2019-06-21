@@ -13,7 +13,7 @@ namespace PingDong.NewMoon.UserManagement.Infrastructure
             var settingFile = Path.Combine(Directory.GetCurrentDirectory(), "local.settings.json");
 
             var config = new ConfigurationBuilder()
-                .AddJsonFile(settingFile)
+                .AddJsonFile(settingFile, optional:true)
                 .AddEnvironmentVariables()
                 .Build();
             var connectionString = config.GetConnectionString("Default");
