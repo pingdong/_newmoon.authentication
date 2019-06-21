@@ -39,13 +39,6 @@ steps:
     projects: '**/*Tests/*.csproj'
     arguments: '--configuration $(buildConfiguration) --collect "Code coverage"'
 
-- task: DotNetCoreCLI@2
-  displayName: 'Release Build'
-  inputs:
-    projects: '**/*.csproj'
-    arguments: '--configuration $(BuildConfiguration.Release) --output $(Build.ArtifactStagingDirectory)'
-  condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
-
 - task: pekspro.pekspro-efcore-migration-script-generator.efcore-migration-script-generator.efcore-migration-script-generator-task@0
   displayName: 'Generate Migration Scripts'
   inputs:
@@ -53,6 +46,13 @@ steps:
     databasecontexts: ApplicationDbContext
     startupprojectpath: src/UserManagement
     targetfolder: '$(Build.ArtifactStagingDirectory)'
+  condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
+
+- task: DotNetCoreCLI@2
+  displayName: 'Release Build'
+  inputs:
+    projects: '**/*.csproj'
+    arguments: '--configuration $(BuildConfiguration.Release) --output $(Build.ArtifactStagingDirectory)'
   condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
 
 - task: DotNetCoreCLI@2
