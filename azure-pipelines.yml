@@ -46,12 +46,13 @@ steps:
     arguments: '--configuration $(BuildConfiguration.Release) --output $(Build.ArtifactStagingDirectory)'
   condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
 
-- task: CopyFiles@2
-  displayName: 'Publish Database Migration Script'
+- task: efcore-migration-script-generator-task@0
+  displayName: 'Generator Migration Script'
   inputs:
-    SourceFolder: src/UserManagement.Infrastructure/
-    Contents: migration.sql
-    TargetFolder: '$(Build.ArtifactStagingDirectory)'
+    projectpath: '$(Build.SourcesDirectory)/src/UserManagement.Infrastructure/UserManagement.Infrastructure.csproj'
+    databasecontexts: 'ApplicationDbContext'
+    startupprojectpath:'$(Build.SourcesDirectory)/src/UserManagement/UserManagement.csproj'
+    targetfolder: '$(build.ArtifactStagingDirectory)/migration.sql'
   condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
 
 - task: DotNetCoreCLI@2
