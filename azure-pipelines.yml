@@ -46,13 +46,12 @@ steps:
     arguments: '--configuration $(BuildConfiguration.Release) --output $(Build.ArtifactStagingDirectory)'
   condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
 
-steps:
-- task: CopyFiles@2
-  displayName: 'Publish Database Migration Script'
+- task: pekspro.pekspro-efcore-migration-script-generator.efcore-migration-script-generator.efcore-migration-script-generator-task@0
+  displayName: 'Generate Migration Scripts'
   inputs:
-    SourceFolder: src/UserManagement.Infrastructure/
-    Contents: migration.sql
-    TargetFolder: '$(Build.ArtifactStagingDirectory)'
+    projectpath: src/UserManagement.Infrastructure/UserManagement.Infrastructure.csproj
+    databasecontexts: ApplicationDbContext
+    startupprojectpath: src/UserManagement
   condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
 
 - task: DotNetCoreCLI@2
