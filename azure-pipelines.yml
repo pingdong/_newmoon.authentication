@@ -46,7 +46,6 @@ steps:
     arguments: '--configuration $(BuildConfiguration.Release) --output $(Build.ArtifactStagingDirectory)'
   condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
 
-steps:
 - task: CopyFiles@2
   displayName: 'Publish Database Migration Script'
   inputs:
