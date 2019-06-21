@@ -49,9 +49,9 @@ steps:
 - task: pekspro.pekspro-efcore-migration-script-generator.efcore-migration-script-generator.efcore-migration-script-generator-task@0
   displayName: 'Generate Migration Scripts'
   inputs:
-    projectpath: src/UserManagement/UserManagement.csproj
+    projectpath: src/UserManagement.Infrastructure/UserManagement.Infrastructure.csproj
     databasecontexts: ApplicationDbContext
-    startupprojectpath: src/UserManagement.Infrastructure
+    startupprojectpath: src/UserManagement
   condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
 
 - task: DotNetCoreCLI@2
