@@ -3,11 +3,12 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
     <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
-    <AssemblyName>PingDong.Newmoon.Authentication.IdentityService</AssemblyName>
+    <AssemblyName>PingDong.Newmoon.IdentityService</AssemblyName>
     <Version>0.0.1.0</Version>
     <PackageId>PingDong.Newmoon.IdentityService</PackageId>
     <Authors>Ping Dong</Authors>
     <Product>Newmoon</Product>
+    <RootNamespace>PingDong.Newmoon.IdentityService</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
