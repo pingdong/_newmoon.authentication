@@ -46,6 +46,15 @@ steps:
     arguments: '--configuration $(BuildConfiguration.Release) --output $(Build.ArtifactStagingDirectory)'
   condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
 
+steps:
+- task: CopyFiles@2
+  displayName: 'Publish Database Migration Script'
+  inputs:
+    SourceFolder: src/UserManagement.Infrastructure/
+    Contents: migration.sql
+    TargetFolder: '$(Build.ArtifactStagingDirectory)'
+  condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
+
 - task: DotNetCoreCLI@2
   displayName: Publish
   inputs:
