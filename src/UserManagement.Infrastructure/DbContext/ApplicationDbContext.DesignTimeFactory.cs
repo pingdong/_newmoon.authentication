@@ -14,6 +14,7 @@ namespace PingDong.NewMoon.UserManagement.Infrastructure
 
             var config = new ConfigurationBuilder()
                 .AddJsonFile(settingFile)
+                .AddEnvironmentVariables()
                 .Build();
             var connectionString = config.GetConnectionString("Default");
 
