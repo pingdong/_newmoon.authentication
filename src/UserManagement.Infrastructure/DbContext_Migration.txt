@@ -1,5 +1,5 @@
 ﻿CREATE DbContext
-dotnet ef migrations add Initial --startup-project ../Authentication/
+dotnet ef migrations add Initial --startup-project ../UserManagement/
 
 Generate Sql Scripts
-dotnet ef migrations script --startup-project ../Authentication/ -i -o migration.sql
+dotnet ef migrations script --startup-project ../UserManagement/ -i -o migration.sql
