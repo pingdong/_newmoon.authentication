@@ -19,10 +19,6 @@ variables:
   BuildConfiguration.Release: 'Release'
 
 steps:
-- powershell: |
-  env:
-    ConnectionStrings__Default: $(AuthDbConnectionString)
-
 - task: DotNetCoreCLI@2
   displayName: 'Restore'
   inputs:
@@ -52,6 +48,8 @@ steps:
     startupprojectpath: src/UserManagement
     targetfolder: '$(Build.ArtifactStagingDirectory)'
   condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
+  env:
+    ConnectionStrings__Default: $(AuthDbConnectionString)
 
 - task: DotNetCoreCLI@2
   displayName: 'Release Build'
