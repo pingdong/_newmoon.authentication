@@ -33,12 +33,9 @@ namespace PingDong.Newmoon.Authentication.IdentityService
             var connectionString = _configuration.GetConnectionString("Default");
 
             #region DevOps
-
-            if (_env.IsProduction())
-            {
-                // Telemetry (Application Insights)
-                services.AddApplicationInsightsTelemetry(_configuration);
-            }
+            
+            // Telemetry (Application Insights)
+            services.AddApplicationInsightsTelemetry(_configuration);
 
             // HealthChecks
             services.AddHealthChecks(checks =>
@@ -53,35 +50,36 @@ namespace PingDong.Newmoon.Authentication.IdentityService
             #region Asp.Net Identity
 
             services.AddDbContext<ApplicationDbContext>(context =>
-                context.UseSqlServer(connectionString,
-                    sqlServerOptionsAction: options =>
-                    {
-                        options.EnableRetryOnFailure(maxRetryCount: 10,
-                                                     maxRetryDelay: TimeSpan.FromSeconds(30),
-                                                 errorNumbersToAdd: null);
-                    }
-                ));
+                                        context.UseSqlServer(connectionString,
+                                            sqlServerOptionsAction: options =>
+                                            {
+                                                options.EnableRetryOnFailure(maxRetryCount: 10,
+                                                                             maxRetryDelay: TimeSpan.FromSeconds(30),
+                                                                         errorNumbersToAdd: null);
+                                            }
+                                        ));
 
             services.AddIdentity<ApplicationUser, ApplicationRole>(options =>
-                {
-                    options.Password.RequireDigit = false;
-                    options.Password.RequireNonAlphanumeric = false;
-                    options.Password.RequireUppercase = false;
-                }
-            )
-            .AddDefaultTokenProviders()
-            .AddEntityFrameworkStores<ApplicationDbContext>();
+                                            {
+                                                options.Password.RequireDigit = false;
+                                                options.Password.RequireNonAlphanumeric = false;
+                                                options.Password.RequireUppercase = false;
+                                            }
+                                        )
+                    .AddDefaultTokenProviders()
+                    .AddEntityFrameworkStores<ApplicationDbContext>();
 
             #endregion
 
             services.Configure<CookiePolicyOptions>(options =>
-            {
-                // This lambda determines whether user consent for non-essential cookies is needed for a given request.
-                options.CheckConsentNeeded = context => true;
-                options.MinimumSameSitePolicy = SameSiteMode.None;
-            });
+                            {
+                                // This lambda determines whether user consent for non-essential cookies is needed for a given request.
+                                options.CheckConsentNeeded = context => true;
+                                options.MinimumSameSitePolicy = SameSiteMode.None;
+                            });
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddMvc()
+                        .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             #endregion
 
