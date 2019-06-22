@@ -22,11 +22,7 @@ steps:
 - task: PowerShell@2
   inputs:
     targetType: 'inline'
-    script: 'Param(
-      [string]$AuthDbConnectionString
-      )
-      
-      [Environment]::SetEnvironmentVariable("ConnectionStrings__Default", "$AuthDbConnectionString", "User")'
+    script: '[Environment]::SetEnvironmentVariable("ConnectionStrings__Default", $Env:AuthDbConnectionString, "User")'
 
 - task: DotNetCoreCLI@2
   displayName: 'Restore'
