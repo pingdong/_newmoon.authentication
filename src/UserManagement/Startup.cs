@@ -34,12 +34,9 @@ namespace PingDong.NewMoon.UserManagement
             var connectionString = _configuration.GetConnectionString("Default");
 
             #region DevOps
-
-            if (_env.IsProduction())
-            {
-                // Telemetry (Application Insights)
-                services.AddApplicationInsightsTelemetry(_configuration);
-            }
+            
+            // Telemetry (Application Insights)
+            services.AddApplicationInsightsTelemetry(_configuration);
 
             // HealthChecks
             services.AddHealthChecks(checks =>
@@ -54,22 +51,21 @@ namespace PingDong.NewMoon.UserManagement
             #region Asp.Net Identity
 
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(connectionString,
-                    sqlServerOptionsAction: sqlOptions =>
-                        {
-                            sqlOptions
-                                .EnableRetryOnFailure(maxRetryCount: 10,
-                                        maxRetryDelay: TimeSpan.FromSeconds(30),
-                                        errorNumbersToAdd: null);
-                        }
-                ));
+                                    options.UseSqlServer(connectionString,
+                                        sqlServerOptionsAction: sqlOptions =>
+                                            {
+                                                sqlOptions.EnableRetryOnFailure(maxRetryCount: 10,
+                                                                                maxRetryDelay: TimeSpan.FromSeconds(30),
+                                                                            errorNumbersToAdd: null);
+                                            }
+                                    ));
 
             services.AddIdentity<ApplicationUser, ApplicationRole>(options =>
-                        {
-                            options.Password.RequireDigit = false;
-                            options.Password.RequireNonAlphanumeric = false;
-                            options.Password.RequireUppercase = false;
-                        })
+                                    {
+                                        options.Password.RequireDigit = false;
+                                        options.Password.RequireNonAlphanumeric = false;
+                                        options.Password.RequireUppercase = false;
+                                    })
                     .AddDefaultTokenProviders()
                     .AddEntityFrameworkStores<ApplicationDbContext>()
                     // After extending IdentityUser, the below method has to be called to use default logon/register UI
@@ -78,23 +74,23 @@ namespace PingDong.NewMoon.UserManagement
             #endregion
 
             services.Configure<CookiePolicyOptions>(options =>
-            {
-                // This lambda determines whether user consent for non-essential cookies is needed for a given request.
-                options.CheckConsentNeeded = context => true;
-                options.MinimumSameSitePolicy = SameSiteMode.None;
-            });
+                        {
+                            // This lambda determines whether user consent for non-essential cookies is needed for a given request.
+                            options.CheckConsentNeeded = context => true;
+                            options.MinimumSameSitePolicy = SameSiteMode.None;
+                        });
 
             services.AddMvc()
                 .AddRazorPagesOptions(o => o.Conventions.AddAreaFolderRouteModelConvention("Identity", "/Account/",
-                    model =>
-                    {
-                        foreach (var selector in model.Selectors)
-                        {
-                            var attributeRouteModel = selector.AttributeRouteModel;
-                            attributeRouteModel.Order = -1;
-                            attributeRouteModel.Template = attributeRouteModel.Template.Remove(0, "Identity".Length);
-                        }
-                    }))
+                                                                model =>
+                                                                {
+                                                                    foreach (var selector in model.Selectors)
+                                                                    {
+                                                                        var attributeRouteModel = selector.AttributeRouteModel;
+                                                                        attributeRouteModel.Order = -1;
+                                                                        attributeRouteModel.Template = attributeRouteModel.Template.Remove(0, "Identity".Length);
+                                                                    }
+                                                                }))
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             
             #endregion
@@ -110,10 +106,10 @@ namespace PingDong.NewMoon.UserManagement
 
                 // Make work identity server redirections in Edge and lastest versions of browers. WARN: Not valid in a production environment.
                 app.Use(async (context, next) =>
-                {
-                    context.Response.Headers.Add("Content-Security-Policy", "script-src 'unsafe-inline'");
-                    await next();
-                });
+                    {
+                        context.Response.Headers.Add("Content-Security-Policy", "script-src 'unsafe-inline'");
+                        await next();
+                    });
             }
             else
             {

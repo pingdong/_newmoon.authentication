@@ -15,17 +15,17 @@ namespace PingDong.NewMoon.UserManagement
             var env = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
 
             var builder = new ConfigurationBuilder()
-                    .SetBasePath(Directory.GetCurrentDirectory())
-                    // Application related setting
-                    //   for example: log setting
-                    .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
-                    // If the same settings in appsettings.json needs to be replaced in development environment, write here
-                    //   for example: different logging setting
-                    .AddJsonFile($"appsettings.{env}.json", optional: true)
-                    .AddEnvironmentVariables()
-                    // Environment-aware settings
-                    //   for example: external service uri
-                    .AddCommandLine(args);
+                                .SetBasePath(Directory.GetCurrentDirectory())
+                                // Application related setting
+                                //   for example: log setting
+                                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+                                // If the same settings in appsettings.json needs to be replaced in development environment, write here
+                                //   for example: different logging setting
+                                .AddJsonFile($"appsettings.{env}.json", optional: true)
+                                .AddEnvironmentVariables()
+                                // Environment-aware settings
+                                //   for example: external service uri
+                                .AddCommandLine(args);
 
             // In development
             if (string.Equals(env, "development", StringComparison.InvariantCultureIgnoreCase))
@@ -56,17 +56,17 @@ namespace PingDong.NewMoon.UserManagement
 
         public static IWebHostBuilder BuildWebHost(string[] args, IConfiguration configuration) =>
             WebHost.CreateDefaultBuilder(args)
-                .CaptureStartupErrors(true)
-                // Application Configure
-                .ConfigureAppConfiguration((builderContext, config) =>
-                {
-                    // Configuration Source
-                    config.AddConfiguration(configuration);
-                })
-                .UseContentRoot(Directory.GetCurrentDirectory())
-                // HealthChecks initialise
-                .UseHealthChecks("/health")
-                .UseApplicationInsights()
-                .UseStartup<Startup>();
+                    .CaptureStartupErrors(true)
+                    // Application Configure
+                    .ConfigureAppConfiguration((builderContext, config) =>
+                    {
+                        // Configuration Source
+                        config.AddConfiguration(configuration);
+                    })
+                    .UseContentRoot(Directory.GetCurrentDirectory())
+                    // HealthChecks initialise
+                    .UseHealthChecks("/health")
+                    .UseApplicationInsights()
+                    .UseStartup<Startup>();
     }
 }
