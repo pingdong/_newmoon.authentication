@@ -19,12 +19,10 @@ namespace PingDong.Newmoon.Authentication.IdentityService
     public class Startup
     {
         private readonly IConfiguration _configuration;
-        private readonly IHostingEnvironment _env;
 
-        public Startup(IConfiguration config, IHostingEnvironment env)
+        public Startup(IConfiguration config)
         {
             _configuration = config;
-            _env = env;
         }
 
         // This method gets called by the runtime. Use this method to add services to the container.
