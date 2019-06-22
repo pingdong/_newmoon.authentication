@@ -19,11 +19,9 @@ variables:
   BuildConfiguration.Release: 'Release'
 
 steps:
-- task: PowerShell@2
-  displayName: 'Set Environment Variable'
-  inputs:
-    targetType: 'inline'
-    script: '[Environment]::SetEnvironmentVariable("ConnectionStrings__Default", Env:AuthDbConnectionString, "User")'
+- powershell: |
+  env:
+    ConnectionStrings__Default: $(AuthDbConnectionString)
 
 - task: DotNetCoreCLI@2
   displayName: 'Restore'
