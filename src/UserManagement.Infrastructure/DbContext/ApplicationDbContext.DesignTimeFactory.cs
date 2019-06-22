@@ -11,11 +11,11 @@ namespace PingDong.NewMoon.UserManagement.Infrastructure
         {
             // Configuration
             var settingFile = Path.Combine(Directory.GetCurrentDirectory(), "local.settings.json");
-
             var config = new ConfigurationBuilder()
                 .AddJsonFile(settingFile, optional:true)
                 .AddEnvironmentVariables()
                 .Build();
+
             var connectionString = config.GetConnectionString("Default");
 
             var optionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>();

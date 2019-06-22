@@ -19,9 +19,6 @@ namespace PingDong.Newmoon.IdentityService.Infrastructure
         // http://docs.identityserver.io/en/release/reference/client.html
         public static IEnumerable<Client> GetClients(IConfiguration config)
         {
-            var eventUri = config["EventsServiceUri"];
-            var placeUri = config["PlacesServiceUri"];
-
             // client credentials client
             return new List<Client>
                 {
