@@ -7,7 +7,7 @@ namespace PingDong.NewMoon.UserManagement.Infrastructure
 {
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, Guid>
     {
-        private const string DefaultSchema = "user";
+        private const string DefaultSchema = "User";
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)

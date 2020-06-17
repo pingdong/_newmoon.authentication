@@ -1,19 +1,18 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata;
+﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
-using System;
 
 namespace PingDong.NewMoon.UserManagement.Infrastructure.Migrations
 {
-    public partial class Initial : Migration
+    public partial class Initialize : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.EnsureSchema(
-                name: "user");
+                name: "User");
 
             migrationBuilder.CreateTable(
                 name: "Roles",
-                schema: "user",
+                schema: "User",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
@@ -28,7 +27,7 @@ namespace PingDong.NewMoon.UserManagement.Infrastructure.Migrations
 
             migrationBuilder.CreateTable(
                 name: "Users",
-                schema: "user",
+                schema: "User",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
@@ -56,11 +55,11 @@ namespace PingDong.NewMoon.UserManagement.Infrastructure.Migrations
 
             migrationBuilder.CreateTable(
                 name: "RoleClaims",
-                schema: "user",
+                schema: "User",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     RoleId = table.Column<Guid>(nullable: false),
                     ClaimType = table.Column<string>(nullable: true),
                     ClaimValue = table.Column<string>(nullable: true)
@@ -71,7 +70,7 @@ namespace PingDong.NewMoon.UserManagement.Infrastructure.Migrations
                     table.ForeignKey(
                         name: "FK_RoleClaims_Roles_RoleId",
                         column: x => x.RoleId,
-                        principalSchema: "user",
+                        principalSchema: "User",
                         principalTable: "Roles",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -79,11 +78,11 @@ namespace PingDong.NewMoon.UserManagement.Infrastructure.Migrations
 
             migrationBuilder.CreateTable(
                 name: "UserClaims",
-                schema: "user",
+                schema: "User",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     UserId = table.Column<Guid>(nullable: false),
                     ClaimType = table.Column<string>(nullable: true),
                     ClaimValue = table.Column<string>(nullable: true)
@@ -94,7 +93,7 @@ namespace PingDong.NewMoon.UserManagement.Infrastructure.Migrations
                     table.ForeignKey(
                         name: "FK_UserClaims_Users_UserId",
                         column: x => x.UserId,
-                        principalSchema: "user",
+                        principalSchema: "User",
                         principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -102,7 +101,7 @@ namespace PingDong.NewMoon.UserManagement.Infrastructure.Migrations
 
             migrationBuilder.CreateTable(
                 name: "UserLogins",
-                schema: "user",
+                schema: "User",
                 columns: table => new
                 {
                     LoginProvider = table.Column<string>(nullable: false),
@@ -116,7 +115,7 @@ namespace PingDong.NewMoon.UserManagement.Infrastructure.Migrations
                     table.ForeignKey(
                         name: "FK_UserLogins_Users_UserId",
                         column: x => x.UserId,
-                        principalSchema: "user",
+                        principalSchema: "User",
                         principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -124,7 +123,7 @@ namespace PingDong.NewMoon.UserManagement.Infrastructure.Migrations
 
             migrationBuilder.CreateTable(
                 name: "UserRoles",
-                schema: "user",
+                schema: "User",
                 columns: table => new
                 {
                     UserId = table.Column<Guid>(nullable: false),
@@ -136,14 +135,14 @@ namespace PingDong.NewMoon.UserManagement.Infrastructure.Migrations
                     table.ForeignKey(
                         name: "FK_UserRoles_Roles_RoleId",
                         column: x => x.RoleId,
-                        principalSchema: "user",
+                        principalSchema: "User",
                         principalTable: "Roles",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_UserRoles_Users_UserId",
                         column: x => x.UserId,
-                        principalSchema: "user",
+                        principalSchema: "User",
                         principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -151,7 +150,7 @@ namespace PingDong.NewMoon.UserManagement.Infrastructure.Migrations
 
             migrationBuilder.CreateTable(
                 name: "UserTokens",
-                schema: "user",
+                schema: "User",
                 columns: table => new
                 {
                     UserId = table.Column<Guid>(nullable: false),
@@ -165,7 +164,7 @@ namespace PingDong.NewMoon.UserManagement.Infrastructure.Migrations
                     table.ForeignKey(
                         name: "FK_UserTokens_Users_UserId",
                         column: x => x.UserId,
-                        principalSchema: "user",
+                        principalSchema: "User",
                         principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -173,13 +172,13 @@ namespace PingDong.NewMoon.UserManagement.Infrastructure.Migrations
 
             migrationBuilder.CreateIndex(
                 name: "IX_RoleClaims_RoleId",
-                schema: "user",
+                schema: "User",
                 table: "RoleClaims",
                 column: "RoleId");
 
             migrationBuilder.CreateIndex(
                 name: "RoleNameIndex",
-                schema: "user",
+                schema: "User",
                 table: "Roles",
                 column: "NormalizedName",
                 unique: true,
@@ -187,31 +186,31 @@ namespace PingDong.NewMoon.UserManagement.Infrastructure.Migrations
 
             migrationBuilder.CreateIndex(
                 name: "IX_UserClaims_UserId",
-                schema: "user",
+                schema: "User",
                 table: "UserClaims",
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_UserLogins_UserId",
-                schema: "user",
+                schema: "User",
                 table: "UserLogins",
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_UserRoles_RoleId",
-                schema: "user",
+                schema: "User",
                 table: "UserRoles",
                 column: "RoleId");
 
             migrationBuilder.CreateIndex(
                 name: "EmailIndex",
-                schema: "user",
+                schema: "User",
                 table: "Users",
                 column: "NormalizedEmail");
 
             migrationBuilder.CreateIndex(
                 name: "UserNameIndex",
-                schema: "user",
+                schema: "User",
                 table: "Users",
                 column: "NormalizedUserName",
                 unique: true,
@@ -222,31 +221,31 @@ namespace PingDong.NewMoon.UserManagement.Infrastructure.Migrations
         {
             migrationBuilder.DropTable(
                 name: "RoleClaims",
-                schema: "user");
+                schema: "User");
 
             migrationBuilder.DropTable(
                 name: "UserClaims",
-                schema: "user");
+                schema: "User");
 
             migrationBuilder.DropTable(
                 name: "UserLogins",
-                schema: "user");
+                schema: "User");
 
             migrationBuilder.DropTable(
                 name: "UserRoles",
-                schema: "user");
+                schema: "User");
 
             migrationBuilder.DropTable(
                 name: "UserTokens",
-                schema: "user");
+                schema: "User");
 
             migrationBuilder.DropTable(
                 name: "Roles",
-                schema: "user");
+                schema: "User");
 
             migrationBuilder.DropTable(
                 name: "Users",
-                schema: "user");
+                schema: "User");
         }
     }
 }
