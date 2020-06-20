@@ -90,7 +90,6 @@ namespace PingDong.NewMoon.UserManagement
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseDatabaseErrorPage();
             }
             else
             {
