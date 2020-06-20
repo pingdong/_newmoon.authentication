@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.HealthChecks;
+using Microsoft.Extensions.Hosting;
 using PingDong.Newmoon.IdentityService.Infrastructure;
 using PingDong.Newmoon.IdentityService.Service;
 using PingDong.NewMoon.UserManagement;
@@ -28,18 +28,14 @@ namespace PingDong.Newmoon.Authentication.IdentityService
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            var connectionString = _configuration.GetConnectionString("Default");
-
             #region DevOps
             
             // Telemetry (Application Insights)
             services.AddApplicationInsightsTelemetry(_configuration);
 
             // HealthChecks
-            services.AddHealthChecks(checks =>
-            {
-                checks.AddSqlCheck("Database Connectivity", connectionString);
-            });
+            services.AddHealthChecks()
+                .AddDbContextCheck<ApplicationDbContext>();
 
             #endregion
 
@@ -48,7 +44,7 @@ namespace PingDong.Newmoon.Authentication.IdentityService
             #region Asp.Net Identity
 
             services.AddDbContext<ApplicationDbContext>(context =>
-                                        context.UseSqlServer(connectionString,
+                                        context.UseSqlServer(_configuration.GetConnectionString("Default"),
                                             sqlServerOptionsAction: options =>
                                             {
                                                 options.EnableRetryOnFailure(maxRetryCount: 10,
@@ -58,14 +54,14 @@ namespace PingDong.Newmoon.Authentication.IdentityService
                                         ));
 
             services.AddIdentity<ApplicationUser, ApplicationRole>(options =>
-                                            {
-                                                options.Password.RequireDigit = false;
-                                                options.Password.RequireNonAlphanumeric = false;
-                                                options.Password.RequireUppercase = false;
-                                            }
-                                        )
-                    .AddDefaultTokenProviders()
-                    .AddEntityFrameworkStores<ApplicationDbContext>();
+                    {
+                        options.Password.RequireDigit = false;
+                        options.Password.RequireNonAlphanumeric = false;
+                        options.Password.RequireUppercase = false;
+                    }
+                )
+                .AddDefaultTokenProviders()
+                .AddEntityFrameworkStores<ApplicationDbContext>();
 
             #endregion
 
@@ -76,8 +72,8 @@ namespace PingDong.Newmoon.Authentication.IdentityService
                                 options.MinimumSameSitePolicy = SameSiteMode.None;
                             });
 
-            services.AddMvc()
-                        .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddMvc(option => option.EnableEndpointRouting = false)
+                    .SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
 
             #endregion
 
@@ -89,23 +85,27 @@ namespace PingDong.Newmoon.Authentication.IdentityService
 
             services.AddTransient<IProfileService, ProfileService>();
 
-            services.AddIdentityServer()
+            services.AddIdentityServer(options => {
+                        options.Events.RaiseErrorEvents = true;
+                        options.Events.RaiseInformationEvents = true;
+                        options.Events.RaiseFailureEvents = true;
+                        options.Events.RaiseSuccessEvents = true;
+                    })
                     .AddAspNetIdentity<ApplicationUser>()
                     .AddProfileService<ProfileService>()
                     .AddDeveloperSigningCredential()
-                    .AddInMemoryApiResources(IdentityServerConfig.GetApiResources())
+                    .AddInMemoryApiScopes(IdentityServerConfig.GetApiScopes())
                     .AddInMemoryClients(IdentityServerConfig.GetClients(_configuration));
 
             #endregion
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseDatabaseErrorPage();
             }
             else
             {
@@ -115,7 +115,12 @@ namespace PingDong.Newmoon.Authentication.IdentityService
             app.UseCookiePolicy();
             app.UseIdentityServer();
 
-            app.UseMvc();
+            app.UseMvc(routes =>
+            {
+                routes.MapRoute(
+                    name: "default",
+                    template: "{controller}/{action=Index}/{id?}");
+            });
         }
     }
 }

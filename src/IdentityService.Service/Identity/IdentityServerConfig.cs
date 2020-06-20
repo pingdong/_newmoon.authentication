@@ -6,14 +6,14 @@ namespace PingDong.Newmoon.IdentityService.Infrastructure
 {
     public class IdentityServerConfig
     {
-        public static IEnumerable<ApiResource> GetApiResources()
+        public static IEnumerable<ApiScope> GetApiScopes()
         {
-            // http://docs.identityserver.io/en/release/reference/api_resource.html
-            return new List<ApiResource>
-                {
-                    new ApiResource (name: "events", displayName: "Events API"),
-                    new ApiResource (name: "places", displayName: "Places API")
-                };
+            // https://docs.identityserver.io/en/latest/reference/api_scope.html
+            return new List<ApiScope>
+            {
+                new ApiScope (name: "events", displayName: "Events API"),
+                new ApiScope (name: "places", displayName: "Places API")
+            };
         }
 
         // http://docs.identityserver.io/en/release/reference/client.html

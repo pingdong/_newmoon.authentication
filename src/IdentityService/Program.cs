@@ -1,6 +1,6 @@
-﻿using Microsoft.AspNetCore;
-using Microsoft.AspNetCore.Hosting;
+﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Hosting;
 using System;
 using System.IO;
 
@@ -53,14 +53,16 @@ namespace PingDong.Newmoon.Authentication.IdentityService
                 .Run();
         }
 
-        public static IWebHostBuilder BuildWebHost(string[] args, IConfiguration configuration) =>
-            WebHost.CreateDefaultBuilder(args)
-                    .CaptureStartupErrors(true)
-                    // Application Configure
-                    .ConfigureAppConfiguration((builderContext, config) => config.AddConfiguration(configuration))
-                    .UseContentRoot(Directory.GetCurrentDirectory())
-                    .UseHealthChecks("/health")
-                    .UseApplicationInsights()
-                    .UseStartup<Startup>();
+        public static IHostBuilder BuildWebHost(string[] args, IConfiguration configuration) =>
+            Host.CreateDefaultBuilder(args)
+                .ConfigureWebHostDefaults(builder =>
+                {
+                    builder.UseContentRoot(Directory.GetCurrentDirectory());
+                    builder.ConfigureAppConfiguration((context, config) =>
+                    {
+                        config.AddConfiguration(configuration);
+                    });
+                    builder.UseStartup<Startup>();
+                });
     }
 }
