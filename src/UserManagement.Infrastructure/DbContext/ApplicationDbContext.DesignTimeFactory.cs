@@ -5,14 +5,15 @@ using System.IO;
 
 namespace PingDong.NewMoon.UserManagement.Infrastructure
 {
+    // This class is used for EF core migration
     public class ApplicationDbContextDesignFactory : IDesignTimeDbContextFactory<ApplicationDbContext>
     {
         public ApplicationDbContext CreateDbContext(string[] args)
         {
             // Configuration
-            var settingFile = Path.Combine(Directory.GetCurrentDirectory(), "local.settings.json");
+            var configurationFile = Path.Combine(Directory.GetCurrentDirectory(), "local.settings.json");
             var config = new ConfigurationBuilder()
-                .AddJsonFile(settingFile, optional:true)
+                .AddJsonFile(configurationFile, optional:true)
                 .AddEnvironmentVariables()
                 .Build();
 

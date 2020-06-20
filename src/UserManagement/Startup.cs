@@ -1,19 +1,14 @@
-using System;
-
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-
 using Microsoft.EntityFrameworkCore;
-
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.HealthChecks;
-
+using Microsoft.Extensions.Hosting;
 using PingDong.NewMoon.UserManagement.Infrastructure;
+using System;
 
 namespace PingDong.NewMoon.UserManagement
 {
@@ -29,34 +24,32 @@ namespace PingDong.NewMoon.UserManagement
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            var connectionString = _configuration.GetConnectionString("Default");
-
-            #region DevOps
+            #region Operation Support
             
-            // Telemetry (Application Insights)
+            // Telemetry
             services.AddApplicationInsightsTelemetry(_configuration);
-
+            
             // HealthChecks
-            services.AddHealthChecks(checks =>
-            {
-                checks.AddSqlCheck("Database Connectivity", connectionString);
-            });
+            services.AddHealthChecks()
+                    .AddDbContextCheck<ApplicationDbContext>();
 
             #endregion
-            
-            #region ASP.Net
 
-            #region Asp.Net Identity
+            #region Infrastructure
 
             services.AddDbContext<ApplicationDbContext>(options =>
-                                    options.UseSqlServer(connectionString,
-                                        sqlServerOptionsAction: sqlOptions =>
-                                            {
-                                                sqlOptions.EnableRetryOnFailure(maxRetryCount: 10,
-                                                                                maxRetryDelay: TimeSpan.FromSeconds(30),
-                                                                            errorNumbersToAdd: null);
-                                            }
-                                    ));
+                options.UseSqlServer(_configuration.GetConnectionString("Default"),
+                    sqlServerOptionsAction: sqlOptions =>
+                    {
+                        sqlOptions.EnableRetryOnFailure(maxRetryCount: 10,
+                            maxRetryDelay: TimeSpan.FromSeconds(5),
+                            errorNumbersToAdd: null);
+                    }
+                ));
+
+            #endregion
+
+            #region ASP.Net
 
             services.AddIdentity<ApplicationUser, ApplicationRole>(options =>
                                     {
@@ -66,10 +59,7 @@ namespace PingDong.NewMoon.UserManagement
                                     })
                     .AddDefaultTokenProviders()
                     .AddEntityFrameworkStores<ApplicationDbContext>()
-                    // After extending IdentityUser, the below method has to be called to use default logon/register UI
-                    .AddDefaultUI(UIFramework.Bootstrap4);
-            
-            #endregion
+                    .AddDefaultUI();
 
             services.Configure<CookiePolicyOptions>(options =>
                         {
@@ -89,31 +79,22 @@ namespace PingDong.NewMoon.UserManagement
                                                                         attributeRouteModel.Template = attributeRouteModel.Template.Remove(0, "Identity".Length);
                                                                     }
                                                                 }))
-                .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+                .SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
             
             #endregion
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseDatabaseErrorPage();
-
-                // Make work identity server redirections in Edge and lastest versions of browers. WARN: Not valid in a production environment.
-                app.Use(async (context, next) =>
-                    {
-                        context.Response.Headers.Add("Content-Security-Policy", "script-src 'unsafe-inline'");
-                        await next();
-                    });
             }
             else
             {
                 app.UseExceptionHandler("/Error");
 
-                // Using https
                 app.UseHsts();
             }
 
@@ -121,9 +102,16 @@ namespace PingDong.NewMoon.UserManagement
             app.UseStaticFiles();
             app.UseCookiePolicy();
 
-            app.UseAuthentication();
+            app.UseRouting();
 
-            app.UseMvc();
+            app.UseAuthentication();
+            app.UseAuthorization();
+
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapRazorPages();
+                endpoints.MapHealthChecks("/health");
+            });
         }
     }
 }
